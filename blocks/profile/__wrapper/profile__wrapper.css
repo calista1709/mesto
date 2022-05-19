@@ -1,0 +1,5 @@
+@media screen and (min-width:1000px) {
+  .profile__wrapper {
+    padding-left: 30px;
+  }
+}
