@@ -10,5 +10,6 @@
   .profile {
     flex-direction: row;
     align-items: start;
+    padding-bottom: 24px;
   }
 }
