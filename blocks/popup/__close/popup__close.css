@@ -7,6 +7,12 @@
   top: -36px;
   right: 0;
   background: no-repeat center url(../../../images/close-icon.svg);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (min-width:1000px) {

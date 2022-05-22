@@ -11,6 +11,12 @@
   font-size: 14px;
   line-height: 17px;
   color: #fff;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup__save:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 @media screen and (min-width:1000px) {

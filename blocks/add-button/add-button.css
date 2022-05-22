@@ -8,9 +8,13 @@
   box-sizing: border-box;
   border: 1px solid #fff;
   background-color: #000;
-  background-image: url(../../images/pen.svg);
-  background-repeat: no-repeat;
-  background-position: center;
+  background: no-repeat center url(../../images/pen.svg);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.add-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (min-width:1000px) {

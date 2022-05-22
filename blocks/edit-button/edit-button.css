@@ -5,9 +5,13 @@
   border: 2px solid #fff;
   border-radius: 2px;
   background-color: #000;
-  background-image: url(../../images/plus.svg);
-  background-repeat: no-repeat;
-  background-position: center;
+  background: no-repeat center url(../../images/plus.svg);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.edit-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (min-width:1000px) {
