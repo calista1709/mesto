@@ -63,20 +63,22 @@
           <li class="gallery__item">
             <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Фото старинной церкви" class="gallery__photo">
             <div class="gallery__wrap">
-              <h2 class="gallery__title">Карачаево-Ч...</h2>
+              <h2 class="gallery__title">Карачаево-Черкесия</h2>
               <span class="gallery__like"></span>
             </div>
           </li>
         </ul>
       </section>
       <section class="popup">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" method="post" class="popup__form">
-          <input type="text" class="popup__input" value="Жак-Ив Кусто">
-          <input type="text" class="popup__input" value="Исследователь океана">
-          <input type="submit" class="popup__save" value="Сохранить">
-        </form>
-        <button type="button" class="popup__close"></button>
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form action="#" method="post" class="popup__form">
+            <input type="text" class="popup__input popup__input_content_name">
+            <input type="text" class="popup__input popup__input_content_job">
+            <input type="submit" class="popup__save" value="Сохранить">
+          </form>
+          <button type="button" class="popup__close"></button>
+        </div>
       </section>
     </main>
 
@@ -84,5 +86,6 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
+  <script src="./js/script.js"></script>
 </body>
 </html>
