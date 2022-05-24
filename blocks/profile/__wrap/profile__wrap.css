@@ -1,4 +1,7 @@
 .profile__wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
   position: relative;
   width: 100%;
 }
