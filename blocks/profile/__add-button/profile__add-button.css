@@ -1,4 +1,4 @@
-.add-button {
+.profile__add-button {
   padding: 0;
   position: absolute;
   top: 9px;
@@ -8,17 +8,17 @@
   box-sizing: border-box;
   border: 1px solid #fff;
   background-color: #000;
-  background: no-repeat center url(../../images/pen.svg);
+  background: no-repeat center url(../../../images/pen.svg);
   transition: opacity 0.3s ease-in-out;
 }
 
-.add-button:hover {
+.profile__add-button:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (min-width:1000px) {
-  .add-button {
+  .profile__add-button {
     top: 15px;
     right: -43px;
     min-width: 24px;
