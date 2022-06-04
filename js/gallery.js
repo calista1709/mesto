@@ -10,7 +10,7 @@ function addGalleryItem(title, src) {
   galleryPhoto.alt = `Фотография: ${title}`;
   galleryTitle.textContent = title;
 
-  galleryList.append(galleryItemElement);
+  galleryList.prepend(galleryItemElement);
 }
 
 initialCards.forEach((item) => addGalleryItem(item.name, item.link));

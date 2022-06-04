@@ -38,13 +38,26 @@
   </div>
 
   <!-- Попап редактирования профиля-->
-  <div class="popup">
+  <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" method="post" name="profile" class="popup__form">
         <input type="text" name="user-name" class="popup__input popup__input_content_name">
         <input type="text" name="user-job" class="popup__input popup__input_content_job">
         <input type="submit" name="save" class="popup__save" value="Сохранить">
+      </form>
+      <button type="button" class="popup__close"  aria-label="Закрыть"></button>
+    </div>
+  </div>
+
+  <!-- Попап добавления карточки-->
+  <div class="popup popup_type_add-form">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form action="#" method="post" name="place" class="popup__form">
+        <input type="text" name="place-name" class="popup__input popup__input_content_place-name" placeholder="Название">
+        <input type="text" name="place-link" class="popup__input popup__input_content_place-link" placeholder="Ссылка на картинку">
+        <input type="submit" name="save" class="popup__save" value="Создать">
       </form>
       <button type="button" class="popup__close"  aria-label="Закрыть"></button>
     </div>
@@ -63,6 +76,8 @@
 
   <script src="./js/data.js"></script>
   <script src="./js/gallery.js"></script>
-  <script src="./js/script.js"></script>
+  <script src="./js/edit-popup.js"></script>
+  <script src="./js/add-popup.js"></script>
+
 </body>
 </html>
