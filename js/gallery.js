@@ -5,17 +5,23 @@ function addGalleryItem (title, src) {
   const galleryItemElement = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
   const galleryPhoto = galleryItemElement.querySelector('.gallery__photo');
   const galleryTitle = galleryItemElement.querySelector('.gallery__title');
-  const galleryLike = galleryItemElement.querySelector('.gallery__like');
+  const likeButton = galleryItemElement.querySelector('.gallery__like');
+  const deleteButton = galleryItemElement.querySelector('.gallery__delete');
 
   galleryPhoto.src = src;
   galleryPhoto.alt = `Фотография: ${title}`;
   galleryTitle.textContent = title;
 
   function clickLike () {
-    galleryLike.classList.toggle('gallery__like_active');
+    likeButton.classList.toggle('gallery__like_active');
   }
 
-  galleryLike.addEventListener('click', clickLike);
+  function deleteCard (evt) {
+    evt.target.parentElement.remove();
+  }
+
+  likeButton.addEventListener('click', clickLike);
+  deleteButton.addEventListener('click', deleteCard);
 
   galleryList.prepend(galleryItemElement);
 }
