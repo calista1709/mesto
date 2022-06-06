@@ -46,7 +46,7 @@
         <input type="text" name="user-job" class="popup__input popup__input_content_job">
         <input type="submit" name="save" class="popup__save" value="Сохранить">
       </form>
-      <button type="button" class="popup__close"  aria-label="Закрыть"></button>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </div>
 
@@ -59,9 +59,18 @@
         <input type="text" name="place-link" class="popup__input popup__input_content_place-link" placeholder="Ссылка на картинку">
         <input type="submit" name="save" class="popup__save" value="Создать">
       </form>
-      <button type="button" class="popup__close"  aria-label="Закрыть"></button>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </div>
+
+    <!-- Попап открытой карточки-->
+    <div class="popup popup_type_opened-photo">
+      <figure class="popup__figure">
+        <img src="./images/Image.png" alt="" class="popup__photo">
+        <figcaption class="popup__figcaption">uuuv</figcaption>
+        <button type="button" class="popup__close" aria-label="Закрыть"></button>
+      </figure>
+    </div>
 
   <!-- Шаблон карточки мест -->
   <template id="gallery-item-template">
@@ -71,7 +80,7 @@
         <h2 class="gallery__title"></h2>
         <button class="gallery__like" type="button" aria-label="Нравится"></button>
       </div>
-      <button class="gallery__delete" type="button"></button>
+      <button class="gallery__delete" type="button" aria-label="Удалить"></button>
     </li>
   </template>
 
