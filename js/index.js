@@ -40,20 +40,31 @@ function openFullImage (photo, title) {
   fullPhoto.src = photo.src;
   fullPhoto.alt = photo.alt;
   fullPhotoTitle.textContent = title.textContent;
-  photoPopup.classList.add('popup_opened');
+  openPopup(photoPopup);
+}
+
+function clickLike (evt) {
+  evt.target.classList.toggle('gallery__like_active');
+}
+
+function deleteCard (evt) {
+  evt.target.parentElement.remove();
 }
 
 function createCard (title, src) {
   const galleryItemElement = galleryItemTemplate.querySelector('.gallery__item').cloneNode(true);
   const galleryPhoto = galleryItemElement.querySelector('.gallery__photo');
   const galleryTitle = galleryItemElement.querySelector('.gallery__title');
+  const likeButton = galleryItemElement.querySelector('.gallery__like');
+  const deleteButton = galleryItemElement.querySelector('.gallery__delete');
 
   galleryPhoto.src = src;
   galleryPhoto.alt = `Фотография: ${title}`;
   galleryTitle.textContent = title;
 
-  galleryList.prepend(galleryItemElement);
 
+  likeButton.addEventListener('click', clickLike);
+  deleteButton.addEventListener('click', deleteCard);
   galleryPhoto.addEventListener('click', function() {
     openFullImage(galleryPhoto, galleryTitle);
   });
@@ -63,19 +74,7 @@ function createCard (title, src) {
 
 function addCard (title, src) {
   const card = createCard(title, src);
-  const likeButton = card.querySelector('.gallery__like');
-  const deleteButton = card.querySelector('.gallery__delete');
-
-  function clickLike (evt) {
-    evt.target.classList.toggle('gallery__like_active');
-  }
-
-  function deleteCard (evt) {
-    evt.target.parentElement.remove();
-  }
-
-  likeButton.addEventListener('click', clickLike);
-  deleteButton.addEventListener('click', deleteCard);
+  galleryList.prepend(card);
 }
 
 function submitAddCardForm (evt) {
