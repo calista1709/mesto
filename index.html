@@ -42,8 +42,8 @@
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" method="post" name="profile" class="popup__form">
-        <input type="text" name="user-name" class="popup__input popup__input_content_name" placeholder="Имя">
-        <input type="text" name="user-job" class="popup__input popup__input_content_job" placeholder="Вид деятельности">
+        <input type="text" name="user-name" class="popup__input popup__input_content_name" placeholder="Имя" required minlength="2" maxlength="40">
+        <input type="text" name="user-job" class="popup__input popup__input_content_job" placeholder="Вид деятельности" required minlength="2" maxlength="200">
         <input type="submit" name="save" class="popup__save" value="Сохранить">
       </form>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
@@ -55,8 +55,8 @@
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
       <form action="#" method="post" name="place" class="popup__form">
-        <input type="text" name="place-name" class="popup__input popup__input_content_place-name" placeholder="Название">
-        <input type="text" name="place-link" class="popup__input popup__input_content_place-link" placeholder="Ссылка на картинку">
+        <input type="text" name="place-name" class="popup__input popup__input_content_place-name" placeholder="Название" required minlength="2" maxlength="30">
+        <input type="url" name="place-link" class="popup__input popup__input_content_place-link" placeholder="Ссылка на картинку" required>
         <input type="submit" name="save" class="popup__save" value="Создать">
       </form>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
