@@ -28,6 +28,15 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  const inputs = Array.from(popup.querySelectorAll('.popup__input'));
+  const errorSpans = Array.from(popup.querySelectorAll('.popup__error'));
+  inputs.forEach((input) => {
+    input.classList.remove('popup__input_type_error');
+  });
+  errorSpans.forEach((errorSpan) => {
+    errorSpan.classList.remove('popup__error_visible');
+    errorSpan.textContent = '';
+  });
 }
 
 function openEditPopup() {
@@ -37,9 +46,9 @@ function openEditPopup() {
 }
 
 function closeAndResetPopup(popup) {
-  const resetForm = popup.querySelector('.popup__form');
   closePopup(popup);
-  resetForm.reset();
+  placeInput.value = '';
+  linkInput.value = '';
 }
 
 function openFullImage (photo, title) {
