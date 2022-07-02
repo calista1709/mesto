@@ -36,6 +36,12 @@ function openEditPopup() {
   jobInput.value = jobElement.textContent;
 }
 
+function closeAndResetPopup(popup) {
+  const resetForm = popup.querySelector('.popup__form');
+  closePopup(popup);
+  resetForm.reset();
+}
+
 function openFullImage (photo, title) {
   fullPhoto.src = photo.src;
   fullPhoto.alt = photo.alt;
@@ -81,9 +87,7 @@ function submitAddCardForm (evt) {
   evt.preventDefault();
 
   addCard(placeInput.value, linkInput.value);
-  closePopup(popupAddCard);
-
-  addFormElement.reset();
+  closeAndResetPopup(popupAddCard);
 }
 
 function submitEditProfileForm (evt) {
@@ -100,7 +104,7 @@ openAddButton.addEventListener('click', function() {
 });
 
 closeAddFormButton.addEventListener('click', function() {
-  closePopup(popupAddCard);
+  closeAndResetPopup(popupAddCard);
 });
 
 addFormElement.addEventListener('submit', submitAddCardForm);
@@ -115,4 +119,17 @@ editFormElement.addEventListener('submit', submitEditProfileForm);
 
 fullImageCloseButton.addEventListener('click', function() {
   closePopup(photoPopup);
+});
+
+
+document.addEventListener('keydown', function(evt) {
+  if (evt.key === 'Escape') {
+    closeAndResetPopup(popupAddCard);
+  }
+});
+
+document.addEventListener('keydown', function(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(popupEditProfile);
+  }
 });
