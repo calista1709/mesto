@@ -139,5 +139,5 @@ popupEditProfile.addEventListener('click', function(evt) {
 });
 
 popupAddCard.addEventListener('click', function(evt) {
-  closePopup(evt.target);
+  closeAndResetPopup(evt.target);
 });
