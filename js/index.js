@@ -80,14 +80,10 @@ function addCard (title, src) {
 function submitAddCardForm (evt) {
   evt.preventDefault();
 
-  if (placeInput.value !== '' && linkInput.value !== '') {
-    addCard(placeInput.value, linkInput.value);
-  }
-
+  addCard(placeInput.value, linkInput.value);
   closePopup(popupAddCard);
 
-  placeInput.value = '';
-  linkInput.value = '';
+  addFormElement.reset();
 }
 
 function submitEditProfileForm (evt) {
