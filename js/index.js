@@ -133,3 +133,11 @@ document.addEventListener('keydown', function(evt) {
     closePopup(popupEditProfile);
   }
 });
+
+popupEditProfile.addEventListener('click', function(evt) {
+  closePopup(evt.target);
+});
+
+popupAddCard.addEventListener('click', function(evt) {
+  closePopup(evt.target);
+});
