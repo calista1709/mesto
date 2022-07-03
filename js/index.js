@@ -28,27 +28,17 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  const inputs = Array.from(popup.querySelectorAll('.popup__input'));
-  const errorSpans = Array.from(popup.querySelectorAll('.popup__error'));
-  inputs.forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  });
-  errorSpans.forEach((errorSpan) => {
-    errorSpan.classList.remove('popup__error_visible');
-    errorSpan.textContent = '';
-  });
+}
+
+function resetAddPopupInputs() {
+  placeInput.value = '';
+  linkInput.value = '';
 }
 
 function openEditPopup() {
   openPopup(popupEditProfile);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
-}
-
-function closeAndResetPopup(popup) {
-  closePopup(popup);
-  placeInput.value = '';
-  linkInput.value = '';
 }
 
 function openFullImage (photo, title) {
@@ -95,8 +85,11 @@ function addCard (title, src) {
 function submitAddCardForm (evt) {
   evt.preventDefault();
 
-  addCard(placeInput.value, linkInput.value);
-  closeAndResetPopup(popupAddCard);
+  if (placeInput.value !== '' && linkInput.value !== '') {
+    addCard(placeInput.value, linkInput.value);
+  }
+
+  closePopup(popupAddCard);
 }
 
 function submitEditProfileForm (evt) {
@@ -109,11 +102,12 @@ function submitEditProfileForm (evt) {
 initialCards.forEach((item) => addCard(item.name, item.link));
 
 openAddButton.addEventListener('click', function() {
+  resetAddPopupInputs();
   openPopup(popupAddCard);
 });
 
 closeAddFormButton.addEventListener('click', function() {
-  closeAndResetPopup(popupAddCard);
+  closePopup(popupAddCard);
 });
 
 addFormElement.addEventListener('submit', submitAddCardForm);
@@ -130,10 +124,9 @@ fullImageCloseButton.addEventListener('click', function() {
   closePopup(photoPopup);
 });
 
-
 document.addEventListener('keydown', function(evt) {
   if (evt.key === 'Escape') {
-    closeAndResetPopup(popupAddCard);
+    closePopup(popupAddCard);
   }
 });
 
@@ -148,5 +141,5 @@ popupEditProfile.addEventListener('click', function(evt) {
 });
 
 popupAddCard.addEventListener('click', function(evt) {
-  closeAndResetPopup(evt.target);
+  closePopup(evt.target);
 });
