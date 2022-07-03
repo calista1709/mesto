@@ -1,3 +1,4 @@
+// Функция показа ошибок в инпутах
 const showInputError = (formElement, inputElement, errorMessage, obj) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(obj.inputErrorClass);
@@ -5,6 +6,7 @@ const showInputError = (formElement, inputElement, errorMessage, obj) => {
   errorElement.classList.add(obj.errorClass);
 };
 
+// Функция удаления показа ошибок в инпутах
 const hideInputError = (formElement, inputElement, obj) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(obj.inputErrorClass);
@@ -12,6 +14,7 @@ const hideInputError = (formElement, inputElement, obj) => {
   errorElement.textContent = '';
 };
 
+// Функция проверки инпута на валидность с дальнейшим показом либо скрытием спанов с ошибкой
 const checkInputValidity = (formElement, inputElement, obj) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, obj);
@@ -20,14 +23,14 @@ const checkInputValidity = (formElement, inputElement, obj) => {
   }
 };
 
-
+// Функция проверки формы на наличие инпута с ошибкой
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   })
 };
 
-
+// Функция изменения состояния кнопки отправки формы - блокировка/разблокировка - в зависимости от результата валидации
 const toggleButtonState = (inputList, buttonElement, obj) => {
   if(hasInvalidInput(inputList)) {
     buttonElement.classList.add(obj.inactiveButtonClass);
@@ -38,6 +41,8 @@ const toggleButtonState = (inputList, buttonElement, obj) => {
   }
 }
 
+// Функция навешивания всем инпутам слушателей состояния введения с дальнейшей проверкой на валидность и
+// блокировкой/разблокировкой кнопки отправки формы
 const setEventListeners = (formElement, obj) => {
   const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector));
   const buttonElement = formElement.querySelector(obj.submitButtonSelector);
@@ -50,6 +55,7 @@ const setEventListeners = (formElement, obj) => {
   });
 };
 
+// Функция проверки всех форм на валидность
 const enableValidation = (obj) => {
   const formList = Array.from(document.querySelectorAll(obj.formSelector));
   formList.forEach((formElement) => {
@@ -60,6 +66,7 @@ const enableValidation = (obj) => {
   });
 };
 
+// Вызов функции проверки форм на валидность
 enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
