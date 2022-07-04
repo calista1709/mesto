@@ -1,4 +1,5 @@
 const popupAddCard = document.querySelector('.popup_type_add-form');
+const formAddCard = popupAddCard.querySelector('.popup__form');
 const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const buttonToCloseAddForm = popupAddCard.querySelector('.popup__close');
 const elementAddForm = popupAddCard.querySelector('.popup__form');
@@ -29,12 +30,6 @@ function openPopup(popup) {
 // Функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
-
-// Функция очистки полей ввода в попапе добавления фотографий
-function resetAddPopupInputs() {
-  placeInput.value = '';
-  linkInput.value = '';
 }
 
 // Функция удаления всех показателей ошибки - спанов с ошибкой и подчеркивания инпутов
@@ -126,7 +121,7 @@ initialCards.forEach((item) => addCard(item.name, item.link));
 
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', function() {
-  resetAddPopupInputs();
+  formAddCard.reset();
   resetErrorStates(popupAddCard);
   openPopup(popupAddCard);
 });
