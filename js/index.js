@@ -1,22 +1,22 @@
 const popupAddCard = document.querySelector('.popup_type_add-form');
-const openAddButton = document.querySelector('.profile__add-button');
-const closeAddFormButton = popupAddCard.querySelector('.popup__close');
-const addFormElement = popupAddCard.querySelector('.popup__form');
+const buttonToOpenAddForm = document.querySelector('.profile__add-button');
+const buttonToCloseAddForm = popupAddCard.querySelector('.popup__close');
+const elementAddForm = popupAddCard.querySelector('.popup__form');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const openEditButton = document.querySelector('.profile__edit-button');
-const closeEditFormButton = popupEditProfile.querySelector('.popup__close');
-const editFormElement = popupEditProfile.querySelector('.popup__form');
+const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
+const buttonToCloseEditForm = popupEditProfile.querySelector('.popup__close');
+const elementEditForm = popupEditProfile.querySelector('.popup__form');
 const galleryList = document.querySelector('.gallery__list');
 const galleryItemTemplate = document.querySelector('#gallery-item-template').content;
-const photoPopup = document.querySelector('.popup_type_opened-photo');
-const fullPhoto = photoPopup.querySelector('.popup__photo');
-const fullPhotoTitle = photoPopup.querySelector('.popup__figcaption');
-const fullImageCloseButton = photoPopup.querySelector('.popup__close');
+const popupPhoto = document.querySelector('.popup_type_opened-photo');
+const photoFull = popupPhoto.querySelector('.popup__photo');
+const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
+const buttonToCloseFullImage = popupPhoto.querySelector('.popup__close');
 
-const placeInput = addFormElement.querySelector('.popup__input_content_place-name');
-const linkInput = addFormElement.querySelector('.popup__input_content_place-link');
-const nameInput = editFormElement.querySelector('.popup__input_content_name');
-const jobInput = editFormElement.querySelector('.popup__input_content_job');
+const placeInput = elementAddForm.querySelector('.popup__input_content_place-name');
+const linkInput = elementAddForm.querySelector('.popup__input_content_place-link');
+const nameInput = elementEditForm.querySelector('.popup__input_content_name');
+const jobInput = elementEditForm.querySelector('.popup__input_content_job');
 
 const nameElement = document.querySelector('.profile__title');
 const jobElement = document.querySelector('.profile__subtitle');
@@ -60,10 +60,10 @@ function openEditPopup() {
 
 // Функция открытия фотографии в полный размер
 function openFullImage (photo, title) {
-  fullPhoto.src = photo.src;
-  fullPhoto.alt = photo.alt;
-  fullPhotoTitle.textContent = title.textContent;
-  openPopup(photoPopup);
+  photoFull.src = photo.src;
+  photoFull.alt = photo.alt;
+  titleFullPhoto.textContent = title.textContent;
+  openPopup(popupPhoto);
 }
 
 // Функция включения-выключения лайка
@@ -125,28 +125,28 @@ function submitEditProfileForm (evt) {
 initialCards.forEach((item) => addCard(item.name, item.link));
 
 // Добавление обработчиков
-openAddButton.addEventListener('click', function() {
+buttonToOpenAddForm.addEventListener('click', function() {
   resetAddPopupInputs();
   resetErrorStates(popupAddCard);
   openPopup(popupAddCard);
 });
 
-closeAddFormButton.addEventListener('click', function() {
+buttonToCloseAddForm.addEventListener('click', function() {
   closePopup(popupAddCard);
 });
 
-addFormElement.addEventListener('submit', submitAddCardForm);
+elementAddForm.addEventListener('submit', submitAddCardForm);
 
-openEditButton.addEventListener('click', openEditPopup);
+buttonToOpenEditForm.addEventListener('click', openEditPopup);
 
-closeEditFormButton.addEventListener('click', function() {
+buttonToCloseEditForm.addEventListener('click', function() {
   closePopup(popupEditProfile);
 });
 
-editFormElement.addEventListener('submit', submitEditProfileForm);
+elementEditForm.addEventListener('submit', submitEditProfileForm);
 
-fullImageCloseButton.addEventListener('click', function() {
-  closePopup(photoPopup);
+buttonToCloseFullImage.addEventListener('click', function() {
+  closePopup(popupPhoto);
 });
 
 document.addEventListener('keydown', function(evt) {
