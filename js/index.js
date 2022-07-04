@@ -102,9 +102,7 @@ function addCard (title, src) {
 // Функция отправки формы добавления карточки
 function submitAddCardForm (evt) {
   evt.preventDefault();
-  if (placeInput.value !== '' && linkInput.value !== '') {
-    addCard(placeInput.value, linkInput.value);
-  }
+  addCard(placeInput.value, linkInput.value);
   closePopup(popupAddCard);
 }
 
