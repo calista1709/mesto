@@ -68,7 +68,7 @@ function clickLike (evt) {
 
 // Функция удаления карточки
 function deleteCard (evt) {
-  evt.target.parentElement.remove();
+  evt.target.closest('li').remove();
 }
 
 // Функция создания карточки
