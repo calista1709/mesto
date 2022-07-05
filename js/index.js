@@ -31,6 +31,7 @@ function openPopup(popup) {
 // Функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEscape);
 }
 
 // Функция закрытия попапа при нажатии на ESC
@@ -134,12 +135,4 @@ elementEditForm.addEventListener('submit', submitEditProfileForm);
 
 buttonToCloseFullImage.addEventListener('click', function() {
   closePopup(popupPhoto);
-});
-
-popupEditProfile.addEventListener('click', function(evt) {
-  closePopup(evt.target);
-});
-
-popupAddCard.addEventListener('click', function(evt) {
-  closePopup(evt.target);
 });
