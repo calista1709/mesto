@@ -25,11 +25,20 @@ const jobElement = document.querySelector('.profile__subtitle');
 // Функция открытия попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEscape);
 }
 
 // Функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+
+// Функция закрытия попапа при нажатии на ESC
+function closePopupByEscape(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape') {
+    closePopup(openedPopup);
+  }
 }
 
 // Функция открытия попапа редактирования профиля
@@ -125,18 +134,6 @@ elementEditForm.addEventListener('submit', submitEditProfileForm);
 
 buttonToCloseFullImage.addEventListener('click', function() {
   closePopup(popupPhoto);
-});
-
-document.addEventListener('keydown', function(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(popupAddCard);
-  }
-});
-
-document.addEventListener('keydown', function(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(popupEditProfile);
-  }
 });
 
 popupEditProfile.addEventListener('click', function(evt) {
