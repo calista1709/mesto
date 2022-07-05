@@ -68,8 +68,13 @@ const setEventListeners = (formElement, obj) => {
 // Функция проверки всех форм на валидность
 const enableValidation = (obj) => {
   const formList = Array.from(document.querySelectorAll(obj.formSelector));
+
   formList.forEach((formElement) => {
+    const buttonElement = formElement.querySelector(obj.submitButtonSelector);
     setEventListeners(formElement, obj);
+    formElement.addEventListener('submit', function() {
+      disableButton(buttonElement, obj.inactiveButtonClass);
+    })
   });
 };
 
