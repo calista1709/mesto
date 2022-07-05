@@ -30,14 +30,24 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
+// Функция блокировки кнопки
+const disableButton = (button, disabledClass) => {
+  button.classList.add(disabledClass);
+  button.disabled = true;
+}
+
+// Функция разблокировки кнопки
+const activateButton = (button, disabledClass) => {
+  button.classList.remove(disabledClass);
+  button.disabled = false;
+}
+
 // Функция изменения состояния кнопки отправки формы - блокировка/разблокировка - в зависимости от результата валидации
 const toggleButtonState = (inputList, buttonElement, obj) => {
   if(hasInvalidInput(inputList)) {
-    buttonElement.classList.add(obj.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableButton(buttonElement, obj.inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(obj.inactiveButtonClass);
-    buttonElement.disabled = false;
+    activateButton(buttonElement, obj.inactiveButtonClass);
   }
 }
 
