@@ -2,6 +2,7 @@ const popupAddCard = document.querySelector('.popup_type_add-form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const buttonToCloseAddForm = popupAddCard.querySelector('.popup__close');
+const buttonToSubmitAddForm = popupAddCard.querySelector('.popup__save');
 const elementAddForm = popupAddCard.querySelector('.popup__form');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
@@ -125,6 +126,7 @@ initialCards.forEach((item) => addCard(item.name, item.link));
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', function() {
   formAddCard.reset();
+  disableButton(buttonToSubmitAddForm, 'popup__button_disabled');
   openPopup(popupAddCard);
 });
 
