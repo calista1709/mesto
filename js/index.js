@@ -26,20 +26,20 @@ const jobElement = document.querySelector('.profile__subtitle');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEscape);
-  document.addEventListener('click', closePopupByClickOnOverlay);
+  popup.addEventListener('mousedown', closePopupByClickOnOverlay);
 }
 
 // Функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEscape);
-  document.removeEventListener('click', closePopupByClickOnOverlay);
+  popup.removeEventListener('mousedown', closePopupByClickOnOverlay);
 }
 
 // Функция закрытия попапа при нажатии на ESC
 function closePopupByEscape(evt) {
-  const openedPopup = document.querySelector('.popup_opened');
   if(evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
