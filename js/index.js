@@ -1,4 +1,5 @@
-import {addCard, galleryList} from './Card.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
 
 const popupAddCard = document.querySelector('.popup_type_add-form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
@@ -12,6 +13,8 @@ const buttonToCloseEditForm = popupEditProfile.querySelector('.popup__close');
 const elementEditForm = popupEditProfile.querySelector('.popup__form');
 const popupPhoto = document.querySelector('.popup_type_opened-photo');
 const buttonToCloseFullImage = popupPhoto.querySelector('.popup__close');
+const galleryList = document.querySelector('.gallery__list');
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 const nameInput = elementEditForm.querySelector('.popup__input_content_name');
 const jobInput = elementEditForm.querySelector('.popup__input_content_job');
@@ -57,6 +60,18 @@ function openEditPopup() {
   jobInput.value = jobElement.textContent;
 }
 
+// Функция блокировки кнопки
+const disableButton = (button, disabledClass) => {
+  button.classList.add(disabledClass);
+  button.disabled = true;
+}
+
+// Функция разблокировки кнопки
+const activateButton = (button, disabledClass) => {
+  button.classList.remove(disabledClass);
+  button.disabled = false;
+}
+
 // Функция отправки формы добавления карточки
 function submitAddCardForm (evt) {
   evt.preventDefault();
@@ -75,6 +90,28 @@ function submitEditProfileForm (evt) {
   jobElement.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
+
+// Функция добавления карточки на страницу
+const addCard = (data, list) => {
+  const card = new Card(data, '#gallery-item-template');
+  const cardElement = card.generateCard();
+
+  list.prepend(cardElement);
+}
+
+// Функция валидации формы
+const validateForm = (setupObj, formElement) => {
+  const formValidator = new FormValidator(setupObj, formElement);
+  formValidator.enableValidation();
+}
+
+// Отрисовка базовых шести карточек на странице
+initialCards.forEach((item) => addCard(item, galleryList));
+
+// Валидация всех форм
+formList.forEach((formElement) => {
+  validateForm(setup, formElement);
+});
 
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', function() {
@@ -101,4 +138,4 @@ buttonToCloseFullImage.addEventListener('click', function() {
   closePopup(popupPhoto);
 });
 
-export {openPopup};
+export {openPopup, disableButton, activateButton};
