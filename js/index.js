@@ -5,7 +5,6 @@ const popupAddCard = document.querySelector('.popup_type_add-form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const buttonToCloseAddForm = popupAddCard.querySelector('.popup__close');
-const buttonToSubmitAddForm = popupAddCard.querySelector('.popup__save');
 const elementAddForm = popupAddCard.querySelector('.popup__form');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
@@ -71,18 +70,6 @@ function handleCardClick(name, link) {
   openPopup(popupPhoto);
 }
 
-// Функция блокировки кнопки
-const disableButton = (button, disabledClass) => {
-  button.classList.add(disabledClass);
-  button.disabled = true;
-}
-
-// Функция разблокировки кнопки
-const activateButton = (button, disabledClass) => {
-  button.classList.remove(disabledClass);
-  button.disabled = false;
-}
-
 // Функция отправки формы добавления карточки
 function submitAddCardForm (evt) {
   evt.preventDefault();
@@ -127,7 +114,6 @@ formList.forEach((formElement) => {
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', function() {
   formAddCard.reset();
-  disableButton(buttonToSubmitAddForm, 'popup__button_disabled');
   openPopup(popupAddCard);
 });
 
@@ -148,5 +134,3 @@ elementEditForm.addEventListener('submit', submitEditProfileForm);
 buttonToCloseFullImage.addEventListener('click', function() {
   closePopup(popupPhoto);
 });
-
-export {disableButton, activateButton};

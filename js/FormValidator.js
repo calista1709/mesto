@@ -1,5 +1,3 @@
-import {disableButton, activateButton} from './index.js';
-
 class FormValidator {
   constructor(setupObject, formElement) {
     this._formSelector = setupObject.formSelector;
@@ -27,6 +25,18 @@ class FormValidator {
     errorElement.textContent = '';
   };
 
+  // Функция блокировки кнопки
+  _disableButton(button, disabledClass) {
+    button.classList.add(disabledClass);
+    button.disabled = true;
+  }
+
+  // Функция разблокировки кнопки
+  _activateButton(button, disabledClass) {
+    button.classList.remove(disabledClass);
+    button.disabled = false;
+  }
+
   // Функция проверки инпута на валидность с дальнейшим показом либо скрытием спанов с ошибкой
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
@@ -47,9 +57,9 @@ class FormValidator {
   // в зависимости от результата валидации
   _toggleButtonState(inputList, buttonElement) {
     if(this._hasInvalidInput(inputList)) {
-      disableButton(buttonElement, this._inactiveButtonClass);
+      this._disableButton(buttonElement, this._inactiveButtonClass);
     } else {
-      activateButton(buttonElement, this._inactiveButtonClass);
+      this._activateButton(buttonElement, this._inactiveButtonClass);
     }
   }
 
