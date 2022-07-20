@@ -1,10 +1,9 @@
-import {openPopup} from './index.js';
-
 class Card {
-  constructor(data, selector) {
+  constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
     this._element = this._getTemplate();
     this._galleryPhoto = this._element.querySelector('.gallery__photo');
     this._galleryTitle = this._element.querySelector('.gallery__title');
@@ -30,18 +29,6 @@ class Card {
     evt.target.closest('li').remove();
   }
 
-  _openFullImage () {
-    const popupPhoto = document.querySelector('.popup_type_opened-photo');
-    const photoFull = popupPhoto.querySelector('.popup__photo');
-    const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
-
-    photoFull.src = this.src;
-    photoFull.alt =  this.alt;
-    titleFullPhoto.textContent = this.alt;
-
-    openPopup(popupPhoto);
-  }
-
   _setEventListenerLike() {
     this._likeButton.addEventListener('click', this._clickLike);
   }
@@ -51,7 +38,9 @@ class Card {
   }
 
   _setEventListenerOpenFullImage() {
-    this._galleryPhoto.addEventListener('click', this._openFullImage);
+    this._galleryPhoto.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });
   }
 
   generateCard() {

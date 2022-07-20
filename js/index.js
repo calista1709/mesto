@@ -12,6 +12,8 @@ const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
 const buttonToCloseEditForm = popupEditProfile.querySelector('.popup__close');
 const elementEditForm = popupEditProfile.querySelector('.popup__form');
 const popupPhoto = document.querySelector('.popup_type_opened-photo');
+const photoFull = popupPhoto.querySelector('.popup__photo');
+const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
 const buttonToCloseFullImage = popupPhoto.querySelector('.popup__close');
 const galleryList = document.querySelector('.gallery__list');
 const formList = Array.from(document.querySelectorAll('.popup__form'));
@@ -60,6 +62,15 @@ function openEditPopup() {
   jobInput.value = jobElement.textContent;
 }
 
+// Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
+function handleCardClick(name, link) {
+  photoFull.src = link;
+  photoFull.alt =  name;
+  titleFullPhoto.textContent = name;
+
+  openPopup(popupPhoto);
+}
+
 // Функция блокировки кнопки
 const disableButton = (button, disabledClass) => {
   button.classList.add(disabledClass);
@@ -93,7 +104,7 @@ function submitEditProfileForm (evt) {
 
 // Функция добавления карточки на страницу
 const addCard = (data, list) => {
-  const card = new Card(data, '#gallery-item-template');
+  const card = new Card(data, '#gallery-item-template', handleCardClick);
   const cardElement = card.generateCard();
 
   list.prepend(cardElement);
@@ -138,4 +149,4 @@ buttonToCloseFullImage.addEventListener('click', function() {
   closePopup(popupPhoto);
 });
 
-export {openPopup, disableButton, activateButton};
+export {disableButton, activateButton};
