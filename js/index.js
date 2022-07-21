@@ -91,11 +91,16 @@ function submitEditProfileForm (evt) {
   closePopup(popupEditProfile);
 }
 
-// Функция добавления карточки на страницу
-const addCard = (data, list) => {
+// Функция создания карточки
+const createCard = (data) => {
   const card = new Card(data, '#gallery-item-template', handleCardClick);
   const cardElement = card.generateCard();
+  return cardElement;
+}
 
+// Функция добавления карточки на страницу
+const addCard = (data, list) => {
+  const cardElement = createCard(data);
   list.prepend(cardElement);
 }
 
