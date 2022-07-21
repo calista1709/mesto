@@ -4,17 +4,15 @@ import {FormValidator} from './FormValidator.js';
 const popupAddCard = document.querySelector('.popup_type_add-form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const buttonToOpenAddForm = document.querySelector('.profile__add-button');
-const buttonToCloseAddForm = popupAddCard.querySelector('.popup__close');
 const elementAddForm = popupAddCard.querySelector('.popup__form');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
-const buttonToCloseEditForm = popupEditProfile.querySelector('.popup__close');
 const elementEditForm = popupEditProfile.querySelector('.popup__form');
 const popupPhoto = document.querySelector('.popup_type_opened-photo');
 const photoFull = popupPhoto.querySelector('.popup__photo');
 const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
-const buttonToCloseFullImage = popupPhoto.querySelector('.popup__close');
 const galleryList = document.querySelector('.gallery__list');
+const closeButtons = document.querySelectorAll('.popup__close');
 
 const nameInput = elementEditForm.querySelector('.popup__input_content_name');
 const jobInput = elementEditForm.querySelector('.popup__input_content_job');
@@ -118,20 +116,13 @@ buttonToOpenAddForm.addEventListener('click', function() {
   openPopup(popupAddCard);
 });
 
-buttonToCloseAddForm.addEventListener('click', function() {
-  closePopup(popupAddCard);
-});
+buttonToOpenEditForm.addEventListener('click', openEditPopup);
 
 elementAddForm.addEventListener('submit', submitAddCardForm);
 
-buttonToOpenEditForm.addEventListener('click', openEditPopup);
-
-buttonToCloseEditForm.addEventListener('click', function() {
-  closePopup(popupEditProfile);
-});
-
 elementEditForm.addEventListener('submit', submitEditProfileForm);
 
-buttonToCloseFullImage.addEventListener('click', function() {
-  closePopup(popupPhoto);
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
