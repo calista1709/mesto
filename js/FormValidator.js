@@ -28,15 +28,15 @@ class FormValidator {
   };
 
   // Функция блокировки кнопки
-  _disableButton(button, disabledClass) {
-    button.classList.add(disabledClass);
-    button.disabled = true;
+  disableButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.disabled = true;
   }
 
   // Функция разблокировки кнопки
-  _activateButton(button, disabledClass) {
-    button.classList.remove(disabledClass);
-    button.disabled = false;
+  activateButton() {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.disabled = false;
   }
 
   // Функция проверки инпута на валидность с дальнейшим показом либо скрытием спанов с ошибкой
@@ -57,11 +57,11 @@ class FormValidator {
 
   // Функция изменения состояния кнопки отправки формы - блокировка/разблокировка -
   // в зависимости от результата валидации
-  _toggleButtonState(inputList, buttonElement) {
+  _toggleButtonState(inputList) {
     if(this._hasInvalidInput(inputList)) {
-      this._disableButton(buttonElement, this._inactiveButtonClass);
+      this.disableButton();
     } else {
-      this._activateButton(buttonElement, this._inactiveButtonClass);
+      this.activateButton();
     }
   }
 
@@ -69,18 +69,16 @@ class FormValidator {
   // блокировкой/разблокировкой кнопки отправки формы
   _setEventListeners() {
     const self = this;
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
         self._checkInputValidity(inputElement);
-        self._toggleButtonState(self._inputList, self._buttonElement);
+        self._toggleButtonState(self._inputList);
       });
     });
   };
 
-  // Функция очистки формы от сообщений об ошибках и базовой блокировки кнопки
+  // Функция очистки формы от сообщений об ошибках
   resetValidation() {
-    this._disableButton(this._buttonElement, this._inactiveButtonClass);
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });

@@ -56,9 +56,21 @@ function closePopupByClickOnOverlay(evt) {
 
 // Функция открытия попапа редактирования профиля
 function openEditPopup() {
+  editFormValidator.resetValidation();
+  editFormValidator.activateButton();
+  editFormValidator.enableValidation();
   openPopup(popupEditProfile);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
+}
+
+// Функция открытия попапа добавления карточки
+function openAddCardPopup() {
+  formAddCard.reset();
+  addFormValidator.enableValidation();
+  addFormValidator.disableButton();
+  addFormValidator.resetValidation();
+  openPopup(popupAddCard);
 }
 
 // Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
@@ -102,19 +114,11 @@ const addCard = (data, list) => {
   list.prepend(cardElement);
 }
 
-// Валидация форм
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
 // Отрисовка базовых шести карточек на странице
 initialCards.forEach((item) => addCard(item, galleryList));
 
 // Добавление обработчиков
-buttonToOpenAddForm.addEventListener('click', function() {
-  formAddCard.reset();
-  addFormValidator.resetValidation();
-  openPopup(popupAddCard);
-});
+buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
 
 buttonToOpenEditForm.addEventListener('click', openEditPopup);
 
