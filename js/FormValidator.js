@@ -7,6 +7,8 @@ class FormValidator {
     this._inputErrorClass = setupObject.inputErrorClass;
     this._errorClass = setupObject.errorClass;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
   // Функция показа ошибок в инпутах
@@ -67,16 +69,22 @@ class FormValidator {
   // блокировкой/разблокировкой кнопки отправки формы
   _setEventListeners() {
     const self = this;
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
         self._checkInputValidity(inputElement);
-        self._toggleButtonState(inputList, buttonElement);
+        self._toggleButtonState(self._inputList, self._buttonElement);
       });
     });
   };
+
+  // Функция очистки формы от сообщений об ошибках и базовой блокировки кнопки
+  resetValidation() {
+    this._disableButton(this._buttonElement, this._inactiveButtonClass);
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
 
   // Функция проверки всех форм на валидность
   enableValidation() {
