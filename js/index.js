@@ -15,7 +15,6 @@ const photoFull = popupPhoto.querySelector('.popup__photo');
 const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
 const buttonToCloseFullImage = popupPhoto.querySelector('.popup__close');
 const galleryList = document.querySelector('.gallery__list');
-const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 const nameInput = elementEditForm.querySelector('.popup__input_content_name');
 const jobInput = elementEditForm.querySelector('.popup__input_content_job');
@@ -24,6 +23,9 @@ const linkInput = elementAddForm.querySelector('.popup__input_content_place-link
 
 const nameElement = document.querySelector('.profile__title');
 const jobElement = document.querySelector('.profile__subtitle');
+
+const editFormValidator = new FormValidator(setup, elementEditForm);
+const addFormValidator = new FormValidator(setup, elementAddForm);
 
 // Функция открытия попапа
 function openPopup(popup) {
@@ -97,23 +99,17 @@ const addCard = (data, list) => {
   list.prepend(cardElement);
 }
 
-// Функция валидации формы
-const validateForm = (setupObj, formElement) => {
-  const formValidator = new FormValidator(setupObj, formElement);
-  formValidator.enableValidation();
-}
+// Валидация форм
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 // Отрисовка базовых шести карточек на странице
 initialCards.forEach((item) => addCard(item, galleryList));
 
-// Валидация всех форм
-formList.forEach((formElement) => {
-  validateForm(setup, formElement);
-});
-
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', function() {
   formAddCard.reset();
+  addFormValidator.resetValidation();
   openPopup(popupAddCard);
 });
 
