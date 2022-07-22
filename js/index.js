@@ -58,7 +58,6 @@ function closePopupByClickOnOverlay(evt) {
 function openEditPopup() {
   editFormValidator.resetValidation();
   editFormValidator.activateButton();
-  editFormValidator.enableValidation();
   openPopup(popupEditProfile);
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
@@ -67,7 +66,6 @@ function openEditPopup() {
 // Функция открытия попапа добавления карточки
 function openAddCardPopup() {
   formAddCard.reset();
-  addFormValidator.enableValidation();
   addFormValidator.disableButton();
   addFormValidator.resetValidation();
   openPopup(popupAddCard);
@@ -116,6 +114,10 @@ const addCard = (data, list) => {
 
 // Отрисовка базовых шести карточек на странице
 initialCards.forEach((item) => addCard(item, galleryList));
+
+// Валидация форм
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
 
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
