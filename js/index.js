@@ -1,5 +1,6 @@
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
+import {Section} from './Section.js';
 
 const popupAddCard = document.querySelector('.popup_type_add-form');
 const formAddCard = popupAddCard.querySelector('.popup__form');
@@ -83,11 +84,22 @@ function handleCardClick(name, link) {
 // Функция отправки формы добавления карточки
 function submitAddCardForm (evt) {
   evt.preventDefault();
-  const userAddedCard = {
+
+  const userAddedCard = [{
     name: placeInput.value,
     link: linkInput.value
-  }
-  addCard(userAddedCard, galleryList);
+  }];
+
+  const userCard = new Section({
+    data: userAddedCard,
+    renderer: (item) => {
+      const card = new Card(item, '#gallery-item-template', handleCardClick);
+      const cardElement = card.generateCard();
+      userCard.addItem(cardElement);
+    }
+  }, '.gallery__list');
+
+  userCard.renderItems();
   closePopup(popupAddCard);
 }
 
@@ -99,21 +111,16 @@ function submitEditProfileForm (evt) {
   closePopup(popupEditProfile);
 }
 
-// Функция создания карточки
-const createCard = (data) => {
-  const card = new Card(data, '#gallery-item-template', handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-// Функция добавления карточки на страницу
-const addCard = (data, list) => {
-  const cardElement = createCard(data);
-  list.prepend(cardElement);
-}
-
 // Отрисовка базовых шести карточек на странице
-initialCards.forEach((item) => addCard(item, galleryList));
+const defaultCardList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#gallery-item-template', handleCardClick);
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+  }
+}, '.gallery__list');
+defaultCardList.renderItems();
 
 // Валидация форм
 addFormValidator.enableValidation();
@@ -132,3 +139,5 @@ closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+export {handleCardClick};
