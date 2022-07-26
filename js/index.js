@@ -1,26 +1,23 @@
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
-import {Popup} from './Popup.js';
 import {PopupWithImage} from './PopupWithImage.js';
+import {PopupWithForm} from './PopupWithForm.js';
 
 
-const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const elementAddForm = document.querySelector('.popup_type_add-form').querySelector('.popup__form');
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const elementEditForm = document.querySelector('.popup_type_edit-profile').querySelector('.popup__form');
+const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
-const elementEditForm = popupEditProfile.querySelector('.popup__form');
 
 const nameInput = elementEditForm.querySelector('.popup__input_content_name');
 const jobInput = elementEditForm.querySelector('.popup__input_content_job');
-const placeInput = elementAddForm.querySelector('.popup__input_content_place-name');
-const linkInput = elementAddForm.querySelector('.popup__input_content_place-link');
-
 const nameElement = document.querySelector('.profile__title');
 const jobElement = document.querySelector('.profile__subtitle');
 
 const editFormValidator = new FormValidator(setup, elementEditForm);
 const addFormValidator = new FormValidator(setup, elementAddForm);
+
 const defaultCardList = new Section({
   data: initialCards,
   renderer: (item) => {
@@ -31,21 +28,46 @@ const defaultCardList = new Section({
 }, '.gallery__list');
 
 
-const popupAddCard = new Popup('.popup_type_add-form');
+const popupAddCard = new PopupWithForm({
+  handlerSubmitForm: (evt) => {
+    evt.preventDefault();
+
+    const userAddedCard = [popupAddCard.getInputValues()];
+    const userCard = new Section({
+      data: userAddedCard,
+      renderer: (item) => {
+        const card = new Card(item, '#gallery-item-template', handleCardClick);
+        const cardElement = card.generateCard();
+        userCard.addItem(cardElement);
+      }
+    }, '.gallery__list');
+
+    userCard.renderItems();
+    popupAddCard.close();
+  }
+},'.popup_type_add-form');
+
+const popupEditProfile = new PopupWithForm({
+  handlerSubmitForm: (evt) => {
+    evt.preventDefault();
+    nameElement.textContent = nameInput.value;
+    jobElement.textContent = jobInput.value;
+    popupEditProfile.close();
+  }
+}, '.popup_type_edit-profile');
 
 
 // Функция открытия попапа редактирования профиля
-// function openEditPopup() {
-//   editFormValidator.resetValidation();
-//   editFormValidator.activateButton();
-//   openPopup(popupEditProfile);
-//   nameInput.value = nameElement.textContent;
-//   jobInput.value = jobElement.textContent;
-// }
+function openEditPopup() {
+  editFormValidator.resetValidation();
+  editFormValidator.activateButton();
+  popupEditProfile.open();
+  nameInput.value = nameElement.textContent;
+  jobInput.value = jobElement.textContent;
+}
 
 // Функция открытия попапа добавления карточки
 function openAddCardPopup() {
-  elementAddForm.reset();
   addFormValidator.disableButton();
   addFormValidator.resetValidation();
   popupAddCard.open();
@@ -57,36 +79,6 @@ function handleCardClick(name, link) {
   popupPhoto.open();
 }
 
-// Функция отправки формы добавления карточки
-function submitAddCardForm (evt) {
-  evt.preventDefault();
-
-  const userAddedCard = [{
-    name: placeInput.value,
-    link: linkInput.value
-  }];
-
-  const userCard = new Section({
-    data: userAddedCard,
-    renderer: (item) => {
-      const card = new Card(item, '#gallery-item-template', handleCardClick);
-      const cardElement = card.generateCard();
-      userCard.addItem(cardElement);
-    }
-  }, '.gallery__list');
-
-  userCard.renderItems();
-  closePopup(popupAddCard);
-}
-
-// Функция отправки формы редактирования профиля
-function submitEditProfileForm (evt) {
-  evt.preventDefault();
-  nameElement.textContent = nameInput.value;
-  jobElement.textContent = jobInput.value;
-  closePopup(popupEditProfile);
-}
-
 // Отрисовка базовых шести карточек на странице
 defaultCardList.renderItems();
 
@@ -96,9 +88,4 @@ editFormValidator.enableValidation();
 
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
-
-// buttonToOpenEditForm.addEventListener('click', openEditPopup);
-
-elementAddForm.addEventListener('submit', submitAddCardForm);
-
-elementEditForm.addEventListener('submit', submitEditProfileForm);
+buttonToOpenEditForm.addEventListener('click', openEditPopup);
