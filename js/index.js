@@ -2,15 +2,14 @@ import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {Section} from './Section.js';
 import {Popup} from './Popup.js';
+import {PopupWithImage} from './PopupWithImage.js';
+
 
 const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 const elementAddForm = document.querySelector('.popup_type_add-form').querySelector('.popup__form');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
 const elementEditForm = popupEditProfile.querySelector('.popup__form');
-const popupPhoto = document.querySelector('.popup_type_opened-photo');
-const photoFull = popupPhoto.querySelector('.popup__photo');
-const titleFullPhoto = popupPhoto.querySelector('.popup__figcaption');
 
 const nameInput = elementEditForm.querySelector('.popup__input_content_name');
 const jobInput = elementEditForm.querySelector('.popup__input_content_job');
@@ -54,11 +53,8 @@ function openAddCardPopup() {
 
 // Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
 function handleCardClick(name, link) {
-  photoFull.src = link;
-  photoFull.alt =  name;
-  titleFullPhoto.textContent = name;
-
-  openPopup(popupPhoto);
+  const popupPhoto = new PopupWithImage(name, link, '.popup_type_opened-photo');
+  popupPhoto.open();
 }
 
 // Функция отправки формы добавления карточки
