@@ -49,16 +49,16 @@ class FormValidator {
   };
 
   // Функция проверки формы на наличие инпута с ошибкой
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   };
 
   // Функция изменения состояния кнопки отправки формы - блокировка/разблокировка -
   // в зависимости от результата валидации
-  _toggleButtonState(inputList) {
-    if(this._hasInvalidInput(inputList)) {
+  _toggleButtonState() {
+    if(this._hasInvalidInput()) {
       this.disableButton();
     } else {
       this.activateButton();
@@ -72,7 +72,7 @@ class FormValidator {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
         self._checkInputValidity(inputElement);
-        self._toggleButtonState(self._inputList);
+        self._toggleButtonState();
       });
     });
   };
