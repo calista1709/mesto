@@ -17,17 +17,20 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 
+// Функция по созданию элемента карточки
+const createCard = function(item) {
+  const card = new Card(item, '#gallery-item-template', handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 
 const defaultCardList = new Section({
   data: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, '#gallery-item-template', handleCardClick);
-    const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
-  }
+  renderer: (item) => defaultCardList.addItem(createCard(item))
 }, '.gallery__list');
 
 
@@ -38,11 +41,7 @@ const popupAddCard = new PopupWithForm({
     const userAddedCard = [popupAddCard.getInputValues()];
     const userCard = new Section({
       data: userAddedCard,
-      renderer: (item) => {
-        const card = new Card(item, '#gallery-item-template', handleCardClick);
-        const cardElement = card.generateCard();
-        userCard.addItem(cardElement);
-      }
+      renderer: (item) => userCard.addItem(createCard(item))
     }, '.gallery__list');
 
     userCard.renderItems();
