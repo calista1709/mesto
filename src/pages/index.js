@@ -54,8 +54,8 @@ const popupAddCard = new PopupWithForm({
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (evt) => {
     evt.preventDefault();
-    const newUserInfo = popupEditProfile.getInputValues();
-    userInfo.setUserInfo({name: newUserInfo['user-name'], job: newUserInfo['user-job']});
+    const userNewInfo = popupEditProfile.getInputValues();
+    userInfo.setUserInfo({name: userNewInfo['user-name'], job: userNewInfo['user-job']});
     popupEditProfile.close();
   }
 }, '.popup_type_edit-profile');
