@@ -18,8 +18,8 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 
 const userInfo = new UserInfo(userInfoObj);
-const editFormValidator = new FormValidator(setup, elementEditForm);
-const addFormValidator = new FormValidator(setup, elementAddForm);
+const formEditValidator = new FormValidator(setup, elementEditForm);
+const formAddValidator = new FormValidator(setup, elementAddForm);
 
 const defaultCardList = new Section({
   data: initialCards,
@@ -63,8 +63,8 @@ const popupEditProfile = new PopupWithForm({
 
 // Функция открытия попапа редактирования профиля
 function openEditPopup() {
-  editFormValidator.resetValidation();
-  editFormValidator.activateButton();
+  formEditValidator.resetValidation();
+  formEditValidator.activateButton();
   popupEditProfile.open();
   const values = userInfo.getUserInfo();
   nameInput.value = values['user-name'];
@@ -73,8 +73,8 @@ function openEditPopup() {
 
 // Функция открытия попапа добавления карточки
 function openAddCardPopup() {
-  addFormValidator.disableButton();
-  addFormValidator.resetValidation();
+  formAddValidator.disableButton();
+  formAddValidator.resetValidation();
   popupAddCard.open();
 }
 
@@ -88,8 +88,8 @@ function handleCardClick(name, link) {
 defaultCardList.renderItems();
 
 // Валидация форм
-addFormValidator.enableValidation();
-editFormValidator.enableValidation();
+formAddValidator.enableValidation();
+formEditValidator.enableValidation();
 
 // Добавление обработчиков
 buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
