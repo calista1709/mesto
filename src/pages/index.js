@@ -27,6 +27,7 @@ const createCard = function(item) {
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
+const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
 
 const defaultCardList = new Section({
   data: initialCards,
@@ -79,8 +80,7 @@ function openAddCardPopup() {
 
 // Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
 function handleCardClick(name, link) {
-  const popupPhoto = new PopupWithImage(name, link, '.popup_type_opened-photo');
-  popupPhoto.open();
+  popupPhoto.open(name, link);
 }
 
 // Отрисовка базовых шести карточек на странице
