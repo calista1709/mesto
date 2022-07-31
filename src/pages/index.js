@@ -29,22 +29,15 @@ const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
 
-const defaultCardList = new Section({
+const сardList = new Section({
   data: initialCards,
-  renderer: (item) => defaultCardList.addItem(createCard(item))
+  renderer: (item) => сardList.addItem(createCard(item))
 }, '.gallery__list');
 
 
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
-
-    const userAddedCard = [values];
-    const userCard = new Section({
-      data: userAddedCard,
-      renderer: (item) => userCard.addItem(createCard(item))
-    }, '.gallery__list');
-
-    userCard.renderItems();
+    сardList.addItem(createCard(values));
     popupAddCard.close();
   }
 },'.popup_type_add-form');
@@ -81,7 +74,7 @@ function handleCardClick(name, link) {
 }
 
 // Отрисовка базовых шести карточек на странице
-defaultCardList.renderItems();
+сardList.renderItems();
 
 // Валидация форм
 formAddValidator.enableValidation();
