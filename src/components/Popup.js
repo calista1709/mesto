@@ -23,7 +23,6 @@ class Popup {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
     this._popup.addEventListener('mousedown', this._handleOverlayClose);
-    this.setEventListeners();
   }
 
   close() {

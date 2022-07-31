@@ -90,6 +90,11 @@ defaultCardList.renderItems();
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();
 
-// Добавление обработчиков
+// Добавление обработчиков для открытия форм
 buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
 buttonToOpenEditForm.addEventListener('click', openEditPopup);
+
+// Добавление обработчиков для закрытия форм
+popupPhoto.setEventListeners();
+popupAddCard.setEventListeners();
+popupEditProfile.setEventListeners();
