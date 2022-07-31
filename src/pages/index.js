@@ -36,10 +36,9 @@ const defaultCardList = new Section({
 
 
 const popupAddCard = new PopupWithForm({
-  handlerSubmitForm: (evt) => {
-    evt.preventDefault();
+  handlerSubmitForm: (values) => {
 
-    const userAddedCard = [popupAddCard.getInputValues()];
+    const userAddedCard = [values];
     const userCard = new Section({
       data: userAddedCard,
       renderer: (item) => userCard.addItem(createCard(item))
@@ -52,10 +51,8 @@ const popupAddCard = new PopupWithForm({
 
 
 const popupEditProfile = new PopupWithForm({
-  handlerSubmitForm: (evt) => {
-    evt.preventDefault();
-    const userNewInfo = popupEditProfile.getInputValues();
-    userInfo.setUserInfo({name: userNewInfo['user-name'], job: userNewInfo['user-job']});
+  handlerSubmitForm: (values) => {
+    userInfo.setUserInfo({name: values['user-name'], job: values['user-job']});
     popupEditProfile.close();
   }
 }, '.popup_type_edit-profile');
