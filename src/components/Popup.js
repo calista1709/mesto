@@ -32,7 +32,7 @@ class Popup {
   }
 
   setEventListeners() {
-    this._closeButton.addEventListener('click', () => this.close(this._popup));
+    this._closeButton.addEventListener('click', () => this.close());
   }
 }
 
