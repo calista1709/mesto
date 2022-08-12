@@ -1,6 +1,6 @@
 import './index.css';
 import {
-  initialCards,
+  config,
   setup,
   userInfoObj,
   elementAddForm,
@@ -16,6 +16,7 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import {Api} from '../components/Api.js';
 
 // Функция по созданию элемента карточки
 const createCard = function(item) {
@@ -24,16 +25,21 @@ const createCard = function(item) {
   return cardElement;
 };
 
+const api = new Api(config.host, config.token);
+api.getInitialCards()
+  .then(cards => {
+    const сardList = new Section({
+      data: cards,
+      renderer: (item) => сardList.addItem(createCard(item))
+    }, '.gallery__list');
+
+    сardList.renderItems();
+  });
+
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
-
-const сardList = new Section({
-  data: initialCards,
-  renderer: (item) => сardList.addItem(createCard(item))
-}, '.gallery__list');
-
 
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
@@ -72,9 +78,6 @@ function openAddCardPopup() {
 function handleCardClick(name, link) {
   popupPhoto.open(name, link);
 }
-
-// Отрисовка базовых шести карточек на странице
-сardList.renderItems();
 
 // Валидация форм
 formAddValidator.enableValidation();
