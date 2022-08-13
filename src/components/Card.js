@@ -2,12 +2,14 @@ class Card {
   constructor(data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._element = this._getTemplate();
     this._galleryPhoto = this._element.querySelector('.gallery__photo');
     this._galleryTitle = this._element.querySelector('.gallery__title');
     this._likeButton = this._element.querySelector('.gallery__like');
+    this._likeCount = this._element.querySelector('.gallery__count');
     this._deleteButton = this._element.querySelector('.gallery__delete');
   }
 
@@ -51,6 +53,7 @@ class Card {
     this._galleryPhoto.src = this._link;
     this._galleryPhoto.alt = this._name;
     this._galleryTitle.textContent = this._name;
+    this._likeCount.textContent = this._likes.length;
 
     return this._element;
   }
