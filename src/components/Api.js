@@ -19,6 +19,26 @@ class Api {
     });
   }
 
+  setUserInfo(newInfo) {
+    return fetch(`${this._host}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: newInfo.name,
+        about: newInfo.about
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
   getInitialCards() {
     return fetch(`${this._host}/cards`, {
       headers: {
