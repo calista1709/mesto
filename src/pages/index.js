@@ -25,15 +25,14 @@ const createCard = function(item) {
   return cardElement;
 };
 
+const сardList = new Section({
+  renderer: (item) => сardList.addItem(createCard(item))
+}, '.gallery__list');
+
 const api = new Api(config.host, config.token);
 api.getInitialCards()
   .then(cards => {
-    const сardList = new Section({
-      data: cards,
-      renderer: (item) => сardList.addItem(createCard(item))
-    }, '.gallery__list');
-
-    сardList.renderItems();
+      сardList.renderItems(cards);
   });
 
 const userInfo = new UserInfo(userInfoObj);
