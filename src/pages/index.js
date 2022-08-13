@@ -18,36 +18,20 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import {Api} from '../components/Api.js';
 
-// Функция по созданию элемента карточки
-const createCard = function(item) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-};
-
+const api = new Api(config.host, config.token);
 const сardList = new Section({
   renderer: (item) => сardList.addItem(createCard(item))
 }, '.gallery__list');
-
-const api = new Api(config.host, config.token);
-api.getInitialCards()
-  .then(cards => {
-      сardList.renderItems(cards);
-  });
-
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
-
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     сardList.addItem(createCard(values));
     popupAddCard.close();
   }
 },'.popup_type_add-form');
-
-
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (values) => {
     userInfo.setUserInfo({name: values['user-name'], job: values['user-job']});
@@ -55,6 +39,12 @@ const popupEditProfile = new PopupWithForm({
   }
 }, '.popup_type_edit-profile');
 
+// Функция по созданию элемента карточки
+const createCard = function(item) {
+  const card = new Card(item, '#gallery-item-template', handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
 
 // Функция открытия попапа редактирования профиля
 function openEditPopup() {
@@ -77,6 +67,15 @@ function openAddCardPopup() {
 function handleCardClick(name, link) {
   popupPhoto.open(name, link);
 }
+
+// Отрисовка базовых карточек
+api.getInitialCards()
+  .then(cards => {
+    сardList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Валидация форм
 formAddValidator.enableValidation();

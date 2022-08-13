@@ -14,9 +14,8 @@ class Api {
     .then(res => {
       if(res.ok) {
         return res.json();
-      } else {
-        console.log('Ошибка загрузки данных');
       }
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
