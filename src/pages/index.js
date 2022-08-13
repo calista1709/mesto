@@ -28,8 +28,16 @@ const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
-    сardList.addItem(createCard(values));
-    popupAddCard.close();
+    api.setCard(values)
+      .then(newCard => {
+        сardList.addNewItem(createCard(newCard));
+      })
+      .then(() => {
+        popupAddCard.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 },'.popup_type_add-form');
 const popupEditProfile = new PopupWithForm({
