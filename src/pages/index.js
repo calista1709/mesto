@@ -34,7 +34,7 @@ const popupAddCard = new PopupWithForm({
 },'.popup_type_add-form');
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (values) => {
-    userInfo.setUserInfo({name: values['user-name'], job: values['user-job']});
+    userInfo.setUserInfo({name: values['user-name'], about: values['user-job']});
     popupEditProfile.close();
   }
 }, '.popup_type_edit-profile');
@@ -68,7 +68,17 @@ function handleCardClick(name, link) {
   popupPhoto.open(name, link);
 }
 
-// Отрисовка базовых карточек
+// Отрисовка данных о пользователе - с сервера
+api.getUserInfo()
+  .then(serverUserInfo => {
+    userInfo.setUserInfo(serverUserInfo);
+    userInfo.setUserPhoto(serverUserInfo);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// Отрисовка базовых карточек - с сервера
 api.getInitialCards()
   .then(cards => {
     сardList.renderItems(cards);

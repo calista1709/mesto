@@ -14,7 +14,8 @@ export const setup = {
 
 export const userInfoObj = {
   userNameSelector: '.profile__title',
-  userJobSelector: '.profile__subtitle'
+  userJobSelector: '.profile__subtitle',
+  userPhotoSelector: '.profile__avatar'
 }
 
 export const elementAddForm = document.querySelector('.popup_type_add-form').querySelector('.popup__form');
