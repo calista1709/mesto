@@ -74,23 +74,25 @@
     </div>
   </div>
 
-    <!-- Попап открытой карточки-->
-    <div class="popup popup_type_opened-photo">
-      <figure class="popup__figure">
-        <img src="#" alt="" class="popup__photo">
-        <figcaption class="popup__figcaption"></figcaption>
-        <button type="button" class="popup__close" aria-label="Закрыть"></button>
-      </figure>
-    </div>
+  <!-- Попап открытой карточки-->
+  <div class="popup popup_type_opened-photo">
+    <figure class="popup__figure">
+      <img src="#" alt="" class="popup__photo">
+      <figcaption class="popup__figcaption"></figcaption>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </figure>
+  </div>
 
-    <!-- Попап закрытия карточки-->
-    <div class="popup popup_type_deleting-photo popup_opened">
-      <div class="popup__container">
+  <!-- Попап удаления карточки-->
+  <div class="popup popup_type_deleting-photo">
+    <div class="popup__container">
+      <form action="#" method="post" name="delete" class="popup__form popup__form-confirmation">
         <h2 class="popup__title">Вы уверены?</h2>
-        <button type="submit" class="popup__save popup__button">Да</button>
-        <button type="button" class="popup__close" aria-label="Закрыть"></button>
-      </div>
+        <input type="submit" name="save" class="popup__save popup__button" value="Да">
+      </form>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
+  </div>
 
   <!-- Шаблон карточки мест -->
   <template id="gallery-item-template">

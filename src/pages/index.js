@@ -15,8 +15,9 @@ import { FormValidator } from '../components/FormValidator.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithConfirmation } from '../components/PopupWithConfirmation.js';
 import { UserInfo } from '../components/UserInfo.js';
-import {Api} from '../components/Api.js';
+import { Api } from '../components/Api.js';
 
 const api = new Api(config.host, config.token);
 const сardList = new Section({
@@ -26,6 +27,7 @@ const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
+const popupDeleteCard = new PopupWithConfirmation('.popup_type_deleting-photo');
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setCard(values)
@@ -57,7 +59,7 @@ const popupEditProfile = new PopupWithForm({
 
 // Функция по созданию элемента карточки
 const createCard = function(item) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick);
+  const card = new Card(item, '#gallery-item-template', handleCardClick, popupDeleteCard);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -115,3 +117,4 @@ buttonToOpenEditForm.addEventListener('click', openEditPopup);
 popupPhoto.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
+popupDeleteCard.setEventListeners();

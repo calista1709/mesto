@@ -1,10 +1,11 @@
 class Card {
-  constructor(data, selector, handleCardClick) {
+  constructor(data, selector, handleCardClick, popupDeleteCard) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+    this._popupDeleteCard = popupDeleteCard;
     this._element = this._getTemplate();
     this._galleryPhoto = this._element.querySelector('.gallery__photo');
     this._galleryTitle = this._element.querySelector('.gallery__title');
@@ -27,7 +28,7 @@ class Card {
     evt.target.classList.toggle('gallery__like_active');
   }
 
-  _deleteCard (evt) {
+  _deleteCard(evt) {
     evt.target.closest('li').remove();
   }
 
@@ -36,7 +37,9 @@ class Card {
   }
 
   _setEventListenerDelete() {
-    this._deleteButton.addEventListener('click', this._deleteCard);
+    this._deleteButton.addEventListener('click', () => {
+      this._popupDeleteCard.open();
+    });
   }
 
   _setEventListenerOpenFullImage() {
