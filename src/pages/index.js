@@ -44,7 +44,7 @@ const popupAddCard = new PopupWithForm({
 },'.popup_type_add-form');
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (values) => {
-    api.setUserInfo({name: values['user-name'], about: values['user-job']})
+    api.setUserInfoToServer({name: values['user-name'], about: values['user-job']})
       .then(serverUserInfo => {
         userInfo.setUserInfo(serverUserInfo);
       })
@@ -87,7 +87,7 @@ function handleCardClick(name, link) {
 }
 
 // Отрисовка данных о пользователе - с сервера
-api.getUserInfo()
+api.getUserInfoFromServer()
   .then(serverUserInfo => {
     userInfo.setUserInfo(serverUserInfo);
     userInfo.setUserPhoto(serverUserInfo);

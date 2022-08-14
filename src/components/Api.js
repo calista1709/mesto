@@ -18,14 +18,14 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserInfo() {
+  getUserInfoFromServer() {
     return fetch(`${this._host}/users/me`, {
       headers: this._getHeaders()
     })
     .then(this._getJsonOrError);
   }
 
-  setUserInfo(newInfo) {
+  setUserInfoToServer(newInfo) {
     return fetch(`${this._host}/users/me`, {
       method: 'PATCH',
       headers: this._getHeaders(),
