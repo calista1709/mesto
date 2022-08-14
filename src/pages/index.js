@@ -39,7 +39,24 @@ const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
-const popupDeleteCard = new PopupWithConfirmation('.popup_type_deleting-photo');
+
+
+const popupDeleteCard = new PopupWithConfirmation({
+  handlerSubmitForm: (id, card) => {
+    api.deleteCard(id)
+      .then(() => {
+        card.remove();
+      })
+      .then(() => {
+        popupDeleteCard.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+},'.popup_type_deleting-photo');
+
+
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setCard(values)
@@ -71,7 +88,7 @@ const popupEditProfile = new PopupWithForm({
 
 // Функция по созданию элемента карточки
 const createCard = function(item, isOwn) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick, popupDeleteCard, isOwn);
+  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, isOwn);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -96,6 +113,11 @@ function openAddCardPopup() {
 // Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
 function handleCardClick(name, link) {
   popupPhoto.open(name, link);
+}
+
+// Функция открытия попапа удаления карточки
+function handleDeleteClick(id, card) {
+  popupDeleteCard.open(id, card);
 }
 
 // Отрисовка данных о пользователе - с сервера
