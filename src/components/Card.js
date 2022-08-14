@@ -1,11 +1,12 @@
 class Card {
-  constructor(data, selector, handleCardClick, popupDeleteCard) {
+  constructor(data, selector, handleCardClick, popupDeleteCard, isOwn) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._popupDeleteCard = popupDeleteCard;
+    this._isOwn = isOwn;
     this._element = this._getTemplate();
     this._galleryPhoto = this._element.querySelector('.gallery__photo');
     this._galleryTitle = this._element.querySelector('.gallery__title');
@@ -22,6 +23,12 @@ class Card {
     .cloneNode(true);
 
     return cardElement;
+  }
+
+  _checkCardIsOwn() {
+    if(this._isOwn) {
+      this._deleteButton.classList.add('gallery__delete_active');
+    }
   }
 
   _clickLike(evt) {
@@ -52,6 +59,7 @@ class Card {
     this._setEventListenerLike();
     this._setEventListenerDelete();
     this._setEventListenerOpenFullImage();
+    this._checkCardIsOwn();
 
     this._galleryPhoto.src = this._link;
     this._galleryPhoto.alt = this._name;

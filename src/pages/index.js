@@ -21,7 +21,19 @@ import { Api } from '../components/Api.js';
 
 const api = new Api(config.host, config.token);
 const сardList = new Section({
-  renderer: (item) => сardList.addItem(createCard(item))
+  renderer: (item) => {
+    api.getUserInfoFromServer()
+      .then((res) => {
+        if(res._id === item.owner._id) {
+          сardList.addItem(createCard(item, true));
+        } else {
+          сardList.addItem(createCard(item, false));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 }, '.gallery__list');
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
@@ -32,7 +44,7 @@ const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setCard(values)
       .then(newCard => {
-        сardList.addNewItem(createCard(newCard));
+        сardList.addNewItem(createCard(newCard, true));
       })
       .then(() => {
         popupAddCard.close();
@@ -58,8 +70,8 @@ const popupEditProfile = new PopupWithForm({
 }, '.popup_type_edit-profile');
 
 // Функция по созданию элемента карточки
-const createCard = function(item) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick, popupDeleteCard);
+const createCard = function(item, isOwn) {
+  const card = new Card(item, '#gallery-item-template', handleCardClick, popupDeleteCard, isOwn);
   const cardElement = card.generateCard();
   return cardElement;
 };
