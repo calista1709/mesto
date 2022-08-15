@@ -24,11 +24,7 @@ const сardList = new Section({
   renderer: (item) => {
     api.getUserInfoFromServer()
       .then((res) => {
-        if(res._id === item.owner._id) {
-          сardList.addItem(createCard(item, true));
-        } else {
-          сardList.addItem(createCard(item, false));
-        }
+        сardList.addItem(createCard(item, res._id === item.owner._id));
       })
       .catch((err) => {
         console.log(err);
