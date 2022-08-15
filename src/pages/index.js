@@ -58,6 +58,7 @@ const popupDeleteCard = new PopupWithConfirmation({
 
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
+    popupAddCard.renderSaving(true, 'Сохранение...');
     api.setCard(values)
       .then(newCard => {
         сardList.addNewItem(createCard(newCard, true, false));
@@ -67,12 +68,16 @@ const popupAddCard = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupAddCard.renderSaving(false, '');
       });
   }
 },'.popup_type_add-form');
 
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (values) => {
+    popupEditProfile.renderSaving(true, 'Сохранение...');
     api.setUserInfoToServer({name: values['user-name'], about: values['user-job']})
       .then(serverUserInfo => {
         userInfo.setUserInfo(serverUserInfo);
@@ -82,12 +87,16 @@ const popupEditProfile = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupEditProfile.renderSaving(false, '');
       });
   }
 }, '.popup_type_edit-profile');
 
 const popupChangeAvatar = new PopupWithForm({
   handlerSubmitForm: (url) => {
+    popupChangeAvatar.renderSaving(true, 'Сохранение...');
     api.changeAvatar(url['avatar-link'])
       .then(res => {
         userAvatar.src = res.avatar;
@@ -98,6 +107,9 @@ const popupChangeAvatar = new PopupWithForm({
       .catch(err => {
         console.log(err);
       })
+      .finally(() => {
+        popupChangeAvatar.renderSaving(false, '');
+      });
   }
 },'.popup_type_change-avatar');
 
