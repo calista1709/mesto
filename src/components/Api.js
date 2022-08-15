@@ -37,6 +37,17 @@ class Api {
     .then(this._getJsonOrError);
   }
 
+  changeAvatar(url) {
+    return fetch(`${this._host}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._getHeaders(),
+      body: JSON.stringify({
+        avatar: url
+      })
+    })
+    .then(this._getJsonOrError);
+  }
+
   getInitialCards() {
     return fetch(`${this._host}/cards`, {
       headers: this._getHeaders()

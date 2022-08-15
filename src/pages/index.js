@@ -5,10 +5,13 @@ import {
   userInfoObj,
   elementAddForm,
   elementEditForm,
+  elementAvatarForm,
   nameInput,
   jobInput,
   buttonToOpenAddForm,
-  buttonToOpenEditForm
+  buttonToOpenEditForm,
+  buttonToOpenAvatarForm,
+  userAvatar
 } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -20,6 +23,12 @@ import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 
 const api = new Api(config.host, config.token);
+const userInfo = new UserInfo(userInfoObj);
+const formEditValidator = new FormValidator(setup, elementEditForm);
+const formAddValidator = new FormValidator(setup, elementAddForm);
+const formAvatarValidator = new FormValidator(setup, elementAvatarForm);
+const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
+
 const сardList = new Section({
   renderer: (item) => {
     api.getUserInfoFromServer()
@@ -31,11 +40,6 @@ const сardList = new Section({
       })
   }
 }, '.gallery__list');
-const userInfo = new UserInfo(userInfoObj);
-const formEditValidator = new FormValidator(setup, elementEditForm);
-const formAddValidator = new FormValidator(setup, elementAddForm);
-const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
-
 
 const popupDeleteCard = new PopupWithConfirmation({
   handlerSubmitForm: (id, card) => {
@@ -52,7 +56,6 @@ const popupDeleteCard = new PopupWithConfirmation({
   }
 },'.popup_type_deleting-photo');
 
-
 const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setCard(values)
@@ -67,6 +70,7 @@ const popupAddCard = new PopupWithForm({
       });
   }
 },'.popup_type_add-form');
+
 const popupEditProfile = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setUserInfoToServer({name: values['user-name'], about: values['user-job']})
@@ -81,6 +85,21 @@ const popupEditProfile = new PopupWithForm({
       });
   }
 }, '.popup_type_edit-profile');
+
+const popupChangeAvatar = new PopupWithForm({
+  handlerSubmitForm: (url) => {
+    api.changeAvatar(url['avatar-link'])
+      .then(res => {
+        userAvatar.src = res.avatar;
+      })
+      .then(() => {
+        popupChangeAvatar.close();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+},'.popup_type_change-avatar');
 
 // Функция по созданию элемента карточки
 const createCard = function(item, isOwn, isLikedByUser) {
@@ -104,6 +123,13 @@ function openAddCardPopup() {
   formAddValidator.disableButton();
   formAddValidator.resetValidation();
   popupAddCard.open();
+}
+
+// Функция открытия попапа изменения аватара
+function openChangeAvatarPopup() {
+  formAvatarValidator.disableButton();
+  formAvatarValidator.resetValidation();
+  popupChangeAvatar.open();
 }
 
 // Функция, которая будет получать на вход данные карточки и открывать попап с большой фотографией
@@ -163,13 +189,16 @@ api.getInitialCards()
 // Валидация форм
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();
+formAvatarValidator.enableValidation();
 
 // Добавление обработчиков для открытия форм
 buttonToOpenAddForm.addEventListener('click', openAddCardPopup);
 buttonToOpenEditForm.addEventListener('click', openEditPopup);
+buttonToOpenAvatarForm.addEventListener('click', openChangeAvatarPopup);
 
 // Добавление обработчиков для закрытия форм
 popupPhoto.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupDeleteCard.setEventListeners();
+popupChangeAvatar.setEventListeners();
