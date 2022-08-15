@@ -84,7 +84,7 @@ const popupEditProfile = new PopupWithForm({
 
 // Функция по созданию элемента карточки
 const createCard = function(item, isOwn, isLikedByUser) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, isOwn, isLikedByUser);
+  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, handleLikeClick, isOwn, isLikedByUser);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -114,6 +114,31 @@ function handleCardClick(name, link) {
 // Функция открытия попапа удаления карточки
 function handleDeleteClick(id, card) {
   popupDeleteCard.open(id, card);
+}
+
+// Функция, чтобы поставить/удалить лайк, отправить данные на сервер
+function handleLikeClick(id, isLikedBefore, addLike, deleteLike, likeCount) {
+  if(isLikedBefore) {
+    api.deleteLike(id)
+      .then((res) => {
+        deleteLike();
+        likeCount(res.likes.length);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  } else {
+    api.setLike(id)
+      .then((res) => {
+        addLike();
+        likeCount(res.likes.length);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 }
 
 // Отрисовка данных о пользователе - с сервера
