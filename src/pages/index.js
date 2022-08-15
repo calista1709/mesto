@@ -24,7 +24,7 @@ const сardList = new Section({
   renderer: (item) => {
     api.getUserInfoFromServer()
       .then((res) => {
-        сardList.addItem(createCard(item, res._id === item.owner._id));
+        сardList.addItem(createCard(item, res._id === item.owner._id, item.likes.find((like) => like._id === res._id)));
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +57,7 @@ const popupAddCard = new PopupWithForm({
   handlerSubmitForm: (values) => {
     api.setCard(values)
       .then(newCard => {
-        сardList.addNewItem(createCard(newCard, true));
+        сardList.addNewItem(createCard(newCard, true, false));
       })
       .then(() => {
         popupAddCard.close();
@@ -83,8 +83,8 @@ const popupEditProfile = new PopupWithForm({
 }, '.popup_type_edit-profile');
 
 // Функция по созданию элемента карточки
-const createCard = function(item, isOwn) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, isOwn);
+const createCard = function(item, isOwn, isLikedByUser) {
+  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, isOwn, isLikedByUser);
   const cardElement = card.generateCard();
   return cardElement;
 };

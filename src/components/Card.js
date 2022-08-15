@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, selector, handleCardClick, handleDeleteClick, isOwn) {
+  constructor(data, selector, handleCardClick, handleDeleteClick, isOwn, isLikedByUser) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -8,6 +8,7 @@ class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._isOwn = isOwn;
+    this._isLikedByUser = isLikedByUser;
     this._element = this._getTemplate();
     this._galleryPhoto = this._element.querySelector('.gallery__photo');
     this._galleryTitle = this._element.querySelector('.gallery__title');
@@ -36,6 +37,12 @@ class Card {
     evt.target.classList.toggle('gallery__like_active');
   }
 
+  _checkIsLikedByUser() {
+    if(this._isLikedByUser) {
+      this._likeButton.classList.add('gallery__like_active');
+    }
+  }
+
   _setEventListenerLike() {
     this._likeButton.addEventListener('click', this._clickLike);
   }
@@ -57,6 +64,7 @@ class Card {
     this._setEventListenerDelete();
     this._setEventListenerOpenFullImage();
     this._checkCardIsOwn();
+    this._checkIsLikedByUser();
 
     this._galleryPhoto.src = this._link;
     this._galleryPhoto.alt = this._name;
