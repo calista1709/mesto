@@ -74,6 +74,21 @@
     </div>
   </div>
 
+  <!-- Попап обновления аватара-->
+    <div class="popup popup_type_change-avatar popup_opened">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form action="#" method="post" name="avatar" class="popup__form" novalidate>
+          <div class="popup__input-wrap">
+            <input type="url" name="avatar-link" id="avatar-link" class="popup__input popup__input_content_avatar-link" placeholder="Ссылка на картинку" required>
+            <span class="popup__error avatar-link-error"></span>
+          </div>
+            <input type="submit" name="save" class="popup__save popup__button" value="Сохранить">
+        </form>
+        <button type="button" class="popup__close" aria-label="Закрыть"></button>
+      </div>
+    </div>
+
   <!-- Попап открытой карточки-->
   <div class="popup popup_type_opened-photo">
     <figure class="popup__figure">
