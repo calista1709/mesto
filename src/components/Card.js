@@ -69,10 +69,11 @@ class Card {
 
   _setEventListenerLike() {
     this._likeButton.addEventListener('click', () => {
-      this._deleteLike(this._id);
-    });
-    this._likeButton.addEventListener('click', () => {
-      this._addLike(this._id);
+      if(this._likeButton.classList.contains('gallery__like_active')) {
+        this._deleteLike(this._id);
+      } else {
+        this._addLike(this._id);
+      }
     });
   }
 
