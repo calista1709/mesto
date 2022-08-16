@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, selector, handleCardClick, handleDeleteClick, handleLikeClick, isOwn, isLikedByUser) {
+  constructor(data, selector, handleCardClick, handleDeleteClick, deleteLikeFormServer, addLikeToServer, isOwn, isLikedByUser) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -7,7 +7,8 @@ class Card {
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleLikeClick = handleLikeClick;
+    this._deleteLikeFormServer = deleteLikeFormServer;
+    this._addLikeToServer = addLikeToServer;
     this._isOwn = isOwn;
     this._isLikedByUser = isLikedByUser;
     this._element = this._getTemplate();
@@ -16,9 +17,6 @@ class Card {
     this._likeButton = this._element.querySelector('.gallery__like');
     this._likeCount = this._element.querySelector('.gallery__count');
     this._deleteButton = this._element.querySelector('.gallery__delete');
-    this._deleteLike = this._deleteLike.bind(this);
-    this._addLike = this._addLike.bind(this);
-    this._changeLikeCount = this._changeLikeCount.bind(this);
   }
 
   _getTemplate() {
@@ -39,7 +37,7 @@ class Card {
 
   _checkIsLikedByUser() {
     if(this._isLikedByUser) {
-      this._addLike();
+      this._likeButton.classList.add('gallery__like_active');
     }
   }
 
@@ -47,18 +45,35 @@ class Card {
     this._likeCount.textContent = newCount;
   }
 
-  _deleteLike() {
-    this._likeButton.classList.remove('gallery__like_active');
+  _deleteLike(id) {
+    this._deleteLikeFormServer(id)
+      .then((res) => {
+        this._likeButton.classList.remove('gallery__like_active');
+        this._changeLikeCount(res.likes.length);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
-  _addLike() {
-    this._likeButton.classList.add('gallery__like_active');
+  _addLike(id) {
+    this._addLikeToServer(id)
+      .then((res) => {
+        this._likeButton.classList.add('gallery__like_active');
+        this._changeLikeCount(res.likes.length);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   _setEventListenerLike() {
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeClick(this._id, this._isLikedByUser, this._addLike, this._deleteLike, this._changeLikeCount);
-    })
+      this._deleteLike(this._id);
+    });
+    this._likeButton.addEventListener('click', () => {
+      this._addLike(this._id);
+    });
   }
 
   _setEventListenerDelete() {
