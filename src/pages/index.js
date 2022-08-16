@@ -30,14 +30,8 @@ const formAvatarValidator = new FormValidator(setup, elementAvatarForm);
 const popupPhoto = new PopupWithImage('.popup_type_opened-photo');
 
 const сardList = new Section({
-  renderer: (item) => {
-    api.getUserInfoFromServer()
-      .then((res) => {
-        сardList.addItem(createCard(item, res._id === item.owner._id, item.likes.find((like) => like._id === res._id)));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  renderer: (item, userId) => {
+    сardList.addItem(createCard(item, userId === item.owner._id, item.likes.find((like) => like._id === userId)));
   }
 }, '.gallery__list');
 
@@ -179,25 +173,6 @@ function handleLikeClick(id, isLikedBefore, addLike, deleteLike, likeCount) {
   }
 }
 
-// Отрисовка данных о пользователе - с сервера
-api.getUserInfoFromServer()
-  .then(serverUserInfo => {
-    userInfo.setUserInfo(serverUserInfo);
-    userInfo.setUserPhoto(serverUserInfo);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-// Отрисовка базовых карточек - с сервера
-api.getInitialCards()
-  .then(cards => {
-    сardList.renderItems(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 // Валидация форм
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();
@@ -214,3 +189,14 @@ popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupDeleteCard.setEventListeners();
 popupChangeAvatar.setEventListeners();
+
+// Отрисовка данных о пользователе и базовых карточек - с сервера
+Promise.all([api.getUserInfoFromServer(), api.getInitialCards()])
+  .then(res => {
+    userInfo.setUserInfo(res[0]);
+    userInfo.setUserPhoto(res[0]);
+    сardList.renderItems(res[1], res[0]._id);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

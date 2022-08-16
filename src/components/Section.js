@@ -12,8 +12,8 @@ class Section {
     this._container.prepend(element);
   }
 
-  renderItems(initialArray) {
-    initialArray.forEach(item => this._renderer(item));
+  renderItems(initialArray, userId) {
+    initialArray.forEach(item => this._renderer(item, userId));
   }
 }
 
