@@ -1,8 +1,3 @@
-export const config = {
-  host: 'https://mesto.nomoreparties.co/v1/cohort-47',
-  token: 'fb096cda-3fa8-438f-8ed5-03045e014a70'
-}
-
 export const setup = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

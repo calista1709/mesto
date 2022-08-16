@@ -1,6 +1,5 @@
 import './index.css';
 import {
-  config,
   setup,
   userInfoObj,
   elementAddForm,
@@ -22,7 +21,13 @@ import { PopupWithConfirmation } from '../components/PopupWithConfirmation.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 
-const api = new Api(config.host, config.token);
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
+  headers: {
+    authorization: 'fb096cda-3fa8-438f-8ed5-03045e014a70',
+    'Content-Type': 'application/json'
+  }
+});
 const userInfo = new UserInfo(userInfoObj);
 const formEditValidator = new FormValidator(setup, elementEditForm);
 const formAddValidator = new FormValidator(setup, elementAddForm);
