@@ -79,7 +79,7 @@ class Card {
 
   _setEventListenerDelete() {
     this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteClick(this._id, this._element);
+      this._handleDeleteClick(this._id, this);
     });
   }
 
@@ -102,6 +102,10 @@ class Card {
     this._likeCount.textContent = this._likes.length;
 
     return this._element;
+  }
+
+  deleteCard() {
+    this._element.remove();
   }
 }
 

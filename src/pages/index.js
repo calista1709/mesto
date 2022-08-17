@@ -41,10 +41,10 @@ const сardList = new Section({
 }, '.gallery__list');
 
 const popupDeleteCard = new PopupWithConfirmation({
-  handlerSubmitForm: (id, card) => {
+  handlerSubmitForm: (id, cardInstanse) => {
     api.deleteCard(id)
       .then(() => {
-        card.remove();
+        cardInstanse.deleteCard();
       })
       .then(() => {
         popupDeleteCard.close();
@@ -149,8 +149,8 @@ function handleCardClick(name, link) {
 }
 
 // Функция открытия попапа удаления карточки
-function handleDeleteClick(id, card) {
-  popupDeleteCard.open(id, card);
+function handleDeleteClick(id, cardInstanse) {
+  popupDeleteCard.open(id, cardInstanse);
 }
 
 // Функция, чтобы удалить лайк с сервера
