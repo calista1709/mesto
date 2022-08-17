@@ -97,7 +97,7 @@ const popupChangeAvatar = new PopupWithForm({
     popupChangeAvatar.renderSaving(true, 'Сохранение...');
     api.changeAvatar(url['avatar-link'])
       .then(res => {
-        userInfo.setUserPhoto(res);
+        userInfo.setUserInfo(res);
       })
       .then(() => {
         popupChangeAvatar.close();
@@ -195,7 +195,6 @@ popupChangeAvatar.setEventListeners();
 Promise.all([api.getUserInfoFromServer(), api.getInitialCards()])
   .then(res => {
     userInfo.setUserInfo(res[0]);
-    userInfo.setUserPhoto(res[0]);
     сardList.renderItems(res[1], res[0]._id);
   })
   .catch((err) => {

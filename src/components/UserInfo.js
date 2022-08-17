@@ -18,9 +18,6 @@ class UserInfo {
   setUserInfo(data) {
     this._userNameElement.textContent = data.name;
     this._userJobElement.textContent = data.about;
-  }
-
-  setUserPhoto(data) {
     this._userPhotoElement.src = data.avatar;
   }
 }
