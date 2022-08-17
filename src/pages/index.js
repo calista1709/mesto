@@ -113,7 +113,7 @@ const popupChangeAvatar = new PopupWithForm({
 
 // Функция по созданию элемента карточки
 const createCard = function(item, isOwn, isLikedByUser) {
-  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, deleteLikeFromServer, addLikeToServer, isOwn, isLikedByUser);
+  const card = new Card(item, '#gallery-item-template', handleCardClick, handleDeleteClick, handleDeleteLike, handleAddLike, isOwn, isLikedByUser);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -153,13 +153,25 @@ function handleDeleteClick(id, cardInstanse) {
 }
 
 // Функция, чтобы удалить лайк с сервера
-function deleteLikeFromServer(id) {
-	return api.deleteLike(id);
+function handleDeleteLike(id, cardInstanse) {
+	api.deleteLike(id)
+    .then((res) => {
+      cardInstanse.deleteLike(res.likes.length);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 // Функция, чтобы добавить лайк на сервер
-function addLikeToServer(id) {
-	return api.setLike(id);
+function handleAddLike(id, cardInstanse) {
+	api.setLike(id)
+    .then((res) => {
+      cardInstanse.addLike(res.likes.length);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 // Валидация форм

@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, selector, handleCardClick, handleDeleteClick, deleteLikeFormServer, addLikeToServer, isOwn, isLikedByUser) {
+  constructor(data, selector, handleCardClick, handleDeleteClick, handleDeleteLike, handleAddLike, isOwn, isLikedByUser) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -7,8 +7,8 @@ class Card {
     this._selector = selector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._deleteLikeFormServer = deleteLikeFormServer;
-    this._addLikeToServer = addLikeToServer;
+    this._handleDeleteLike = handleDeleteLike;
+    this._handleAddLike = handleAddLike;
     this._isOwn = isOwn;
     this._isLikedByUser = isLikedByUser;
     this._element = this._getTemplate();
@@ -45,34 +45,22 @@ class Card {
     this._likeCount.textContent = newCount;
   }
 
-  _deleteLike(id) {
-    this._deleteLikeFormServer(id)
-      .then((res) => {
-        this._likeButton.classList.remove('gallery__like_active');
-        this._changeLikeCount(res.likes.length);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  deleteLike(newLikesNumber) {
+    this._likeButton.classList.remove('gallery__like_active');
+    this._changeLikeCount(newLikesNumber);
   }
 
-  _addLike(id) {
-    this._addLikeToServer(id)
-      .then((res) => {
-        this._likeButton.classList.add('gallery__like_active');
-        this._changeLikeCount(res.likes.length);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  addLike(newLikesNumber) {
+    this._likeButton.classList.add('gallery__like_active');
+    this._changeLikeCount(newLikesNumber);
   }
 
   _setEventListenerLike() {
     this._likeButton.addEventListener('click', () => {
       if(this._likeButton.classList.contains('gallery__like_active')) {
-        this._deleteLike(this._id);
+        this._handleDeleteLike(this._id, this);
       } else {
-        this._addLike(this._id);
+        this._handleAddLike(this._id, this);
       }
     });
   }
