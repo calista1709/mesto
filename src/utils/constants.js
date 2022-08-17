@@ -21,5 +21,3 @@ export const jobInput = elementEditForm.querySelector('.popup__input_content_job
 export const buttonToOpenAddForm = document.querySelector('.profile__add-button');
 export const buttonToOpenEditForm = document.querySelector('.profile__edit-button');
 export const buttonToOpenAvatarForm = document.querySelector('.profile__photo-wrap');
-export const userAvatar = document.querySelector('.profile__avatar');
-

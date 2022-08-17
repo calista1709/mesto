@@ -9,8 +9,7 @@ import {
   jobInput,
   buttonToOpenAddForm,
   buttonToOpenEditForm,
-  buttonToOpenAvatarForm,
-  userAvatar
+  buttonToOpenAvatarForm
 } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -98,7 +97,7 @@ const popupChangeAvatar = new PopupWithForm({
     popupChangeAvatar.renderSaving(true, 'Сохранение...');
     api.changeAvatar(url['avatar-link'])
       .then(res => {
-        userAvatar.src = res.avatar;
+        userInfo.setUserPhoto(res);
       })
       .then(() => {
         popupChangeAvatar.close();
